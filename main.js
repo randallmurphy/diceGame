@@ -35,8 +35,8 @@ const sortByNumber = function(arr) {
 const singleDie = document.querySelector('#d6-roll')
 const doubleDie1 = document.querySelector('#double-d6-roll-1')
 const doubleDie2 = document.querySelector('#double-d6-roll-2')
-const twelveDie = document.querySelector('#d12-roll').src = 'images/start/d12.jpeg';
-document.querySelector('#d20-roll').src = 'images/start/d20.jpg';
+const twelveDie = document.querySelector('#d12-roll')
+const twentyDie = document.querySelector('#d20-roll')
 
 
 
@@ -71,34 +71,34 @@ const rollDoubleDice = () => {
     document.querySelector("#double-d6-rolls-median").innerText = `${getMedian(doubleSixes)}`
 }
 
-//add both sums together then push to array
-// doubleDie1.addEventListener('click', ()=>{
-//   const randomNum = getRandomNumber(6);
-//     console.log(randomNum);
-//     doubleDie1.src = `images/d6/${randomNum}.png`;
-    
-// })
-// doubleDie2.addEventListener('click', ()=>{
-//   const randomNum = getRandomNumber(6);
-//     console.log(randomNum);
-//     doubleDie2.src = `images/d6/${randomNum}.png`;
-    
-// })
-
-//   doubleDie.forEach((img)=>{
-//     img.addEventListener('click', ()=>{
-//     const randomNum = getRandomNumber(6);
-//     console.log(randomNum);
-//     doubleDie.src = `images/d6/${randomNum}.png`;
-//   })
-// }); 
-  
+const rollTwelveDie = () => {
+  const randomNum = getRandomNumber(12);
+  console.log(randomNum);
+    twelveDie.src = `images/numbers/${randomNum}.png`
+    twelves.push(randomNum);
+  console.log(twelves);
+  getMedian(twelves)
+  console.log(getMedian(twelves));
+  document.querySelector("#d12-rolls-median").innerText = `${getMedian(twelves)}`
+}
+const rollTwentyDie = () => {
+  const randomNum = getRandomNumber(20);
+  console.log(randomNum);
+    twentyDie.src = `images/numbers/${randomNum}.png`
+    twenties.push(randomNum);
+  console.log(twenties);
+  getMedian(twenties)
+  console.log(getMedian(twenties));
+  document.querySelector("#d20-rolls-median").innerText = `${getMedian(twenties)}`
+}
 
 
 
 singleDie.addEventListener('click', rollSingleDie)
 doubleDie1.addEventListener('click', rollDoubleDice)
 doubleDie2.addEventListener('click', rollDoubleDice)
+twelveDie.addEventListener('click', rollTwelveDie)
+twentyDie.addEventListener('click', rollTwentyDie)
 /******************
  * RESET FUNCTION *
  ******************/
