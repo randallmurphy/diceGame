@@ -31,22 +31,11 @@ const sortByNumber = function(arr) {
 /*******************
  * YOUR CODE BELOW *
  *******************/
-//<img class="d6 roll" id="d6-roll">
+
 const singleDie = document.querySelector('#d6-roll')
-  singleDie.src = 'images/start/d6.png'
-  
- // <img class="double d6 roll" id="double-d6-roll-1">
- // <img class="double d6 roll" id="double-d6-roll-2"> 
-const doubleDie1 = document.querySelector('#double-d6-roll-1') 
-   doubleDie1.src = 'images/start/d6.png';
+const doubleDie1 = document.querySelector('#double-d6-roll-1')
 const doubleDie2 = document.querySelector('#double-d6-roll-2')
-   doubleDie2.src = 'images/start/d6.png';
-//const doubleDie = document.querySelectorAll(".double");
-  // doubleDie.src = 'images/start/d6.png';
-  
-
-
-document.querySelector('#d12-roll').src = 'images/start/d12.jpeg';
+const twelveDie = document.querySelector('#d12-roll').src = 'images/start/d12.jpeg';
 document.querySelector('#d20-roll').src = 'images/start/d20.jpg';
 
 
@@ -57,8 +46,8 @@ document.querySelector('#d20-roll').src = 'images/start/d20.jpg';
 /*******************
  * EVENT LISTENERS *
  *******************/
-singleDie.addEventListener('click', ()=> {
-  // randomly generate number 
+const rollSingleDie = () => {
+// randomly generate number 
   const randomNum = getRandomNumber(6);
     console.log(randomNum);
       singleDie.src = `images/d6/${randomNum}.png`
@@ -67,8 +56,20 @@ singleDie.addEventListener('click', ()=> {
     getMedian(sixes)
     console.log(getMedian(sixes));
     document.querySelector("#d6-rolls-median").innerText = `${getMedian(sixes)}`
-});
+}
 
+
+
+const rollDoubleDice = () => {
+  const randomNum1 = getRandomNumber(6);
+  const randomNum2 = getRandomNumber(6);
+  console.log(randomNum1,randomNum2);
+      doubleDie1.src = `images/d6/${randomNum1}.png`
+      doubleDie2.src = `images/d6/${randomNum2}.png`
+      doubleSixes.push(randomNum1 + randomNum2);
+    console.log(doubleSixes);
+    document.querySelector("#double-d6-rolls-median").innerText = `${getMedian(doubleSixes)}`
+}
 
 //add both sums together then push to array
 // doubleDie1.addEventListener('click', ()=>{
@@ -95,7 +96,9 @@ singleDie.addEventListener('click', ()=> {
 
 
 
-
+singleDie.addEventListener('click', rollSingleDie)
+doubleDie1.addEventListener('click', rollDoubleDice)
+doubleDie2.addEventListener('click', rollDoubleDice)
 /******************
  * RESET FUNCTION *
  ******************/
