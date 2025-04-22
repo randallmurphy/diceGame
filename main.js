@@ -37,7 +37,7 @@ const doubleDie1 = document.querySelector('#double-d6-roll-1')
 const doubleDie2 = document.querySelector('#double-d6-roll-2')
 const twelveDie = document.querySelector('#d12-roll')
 const twentyDie = document.querySelector('#d20-roll')
-
+const resetBtn = document.querySelector('#reset-button');
 
 
 
@@ -56,6 +56,8 @@ const rollSingleDie = () => {
     getMedian(sixes)
     console.log(getMedian(sixes));
     document.querySelector("#d6-rolls-median").innerText = `${getMedian(sixes)}`
+    document.querySelector("#d6-rolls-mean").innerText = `${getMean(sixes)}`
+    document.querySelector("#d6-rolls-mode").innerText = `${getMode(sixes)}`
 }
 
 
@@ -69,6 +71,8 @@ const rollDoubleDice = () => {
       doubleSixes.push(randomNum1 + randomNum2);
     console.log(doubleSixes);
     document.querySelector("#double-d6-rolls-median").innerText = `${getMedian(doubleSixes)}`
+    document.querySelector("#double-d6-rolls-mean").innerText = `${getMean(doubleSixes)}`
+    document.querySelector("#double-d6-rolls-mode").innerText = `${getMode(doubleSixes)}`
 }
 
 const rollTwelveDie = () => {
@@ -80,7 +84,10 @@ const rollTwelveDie = () => {
   getMedian(twelves)
   console.log(getMedian(twelves));
   document.querySelector("#d12-rolls-median").innerText = `${getMedian(twelves)}`
+  document.querySelector("#d12-rolls-mean").innerText = `${getMean(twelves)}`
+  document.querySelector("#d12-rolls-mode").innerText = `${getMode(twelves)}`
 }
+
 const rollTwentyDie = () => {
   const randomNum = getRandomNumber(20);
   console.log(randomNum);
@@ -90,23 +97,43 @@ const rollTwentyDie = () => {
   getMedian(twenties)
   console.log(getMedian(twenties));
   document.querySelector("#d20-rolls-median").innerText = `${getMedian(twenties)}`
+  document.querySelector("#d20-rolls-mean").innerText = `${getMean(twenties)}`
+  document.querySelector("#d20-rolls-mode").innerText = `${getMode(twenties)}`
 }
 
 
 
-singleDie.addEventListener('click', rollSingleDie)
-doubleDie1.addEventListener('click', rollDoubleDice)
-doubleDie2.addEventListener('click', rollDoubleDice)
-twelveDie.addEventListener('click', rollTwelveDie)
-twentyDie.addEventListener('click', rollTwentyDie)
+singleDie.addEventListener('click', rollSingleDie);
+doubleDie1.addEventListener('click', rollDoubleDice);
+doubleDie2.addEventListener('click', rollDoubleDice);
+twelveDie.addEventListener('click', rollTwelveDie);
+twentyDie.addEventListener('click', rollTwentyDie);
+
 /******************
  * RESET FUNCTION *
  ******************/
+const reset = () => {
+  
+  document.querySelectorAll('.reset').forEach((elements)=>{
+    elements.innerText = "na";
+  });
+
+  document.querySelectorAll('.d6').forEach((elements)=>{
+    elements.src = 'images/start/d6.png';
+  })
+  document.querySelector('#d12-roll').src = 'images/start/d12.jpeg'
+
+  document.querySelector('#d20-roll').src = 'images/start/d20.jpg'
+
+  sixes.length = 0; // mutates the original array
+  doubleSixes.length = 0;
+  twelves.length = 0;
+  twenties.length = 0;
+}
 
 
 
-
-
+resetBtn.addEventListener('click', reset);
 /****************
  * MATH SECTION *
  ****************/
@@ -133,11 +160,40 @@ const getMedian = (numArr) =>{
 
 }
 
+const getMean = (numArr) =>{
+// add all the items in array
+// divide by the length
 
+let sum = 0;
+numArr.forEach((num)=>{
+  sum += num
+})
+return (sum / numArr.length).toFixed(0)
+}
 
 const getMode = (numArr) =>{
+//use a map or a hashtable in other languages
+// {1:20 2:2 3:5}
+// have an obj with all option inside
+// [2,3,2,1,5,6]
+ const hashTable = {};
+ for(let num of numArr){
+   if(hashTable[num] === undefined){
+     hashTable[num] += 1; // adds to the count of the number
+   }else{  //if is undefined we havnt seen it yet
+     hashTable[num] = 1;  // first time we see num {2: 2, 3: 1}
+   }
+ }
+ console.log(hashTable)
 
-}
-const getMean = (numArr) =>{
+let mostFrequent = 0; // currently most repeated
+let quantity = 0;     // the amount repeated
+let memo = {mostFrequent: null, quantity:null}
+  for(let key in hashTable){
+    if(hashTable[key] > quantity){
+      mostFrequent = key;
+    }
+  }
+  return mostFrequent;
 
 }
